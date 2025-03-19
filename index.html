@@ -77,11 +77,19 @@
         }
 
         .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 0 20px; /* Padding menor por padrão */
+}
+
+@media screen and (min-width: 1024px) {
+    .gallery {
+        padding-left: 200px;
+        padding-right: 200px;
+    }
+}
 
         .gallery img {
             border-radius: 8px;
@@ -188,9 +196,26 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script>
         const images = [
-            { src: 'public/p1.JPG', categories: ['paisagens'], width: '350px', height: '250px' },
-            { src: 'public/g1.jpg', categories: ['modelos', 'street'], width: '350px', height: '250px' },
-            { src: 'public/g2.jpg', categories: ['modelos'], width: '250px', height: '400px' }
+            { src: 'public/p1.JPG', categories: ['paisagens'], width: '550px', height: '400px' },
+            { src: 'public/g2.jpg', categories: ['modelos'], width: '250px', height: '400px' },
+            { src: 'public/g3.jpg', categories: ['modelos'], width: '250px', height: '400px' },
+            { src: 'public/g4.jpg', categories: ['modelos', 'street'], width: '250px', height: '400px' },
+            
+            { src: 'public/g5.jpg', categories: ['modelos', 'street'], width: '250px', height: '400px' },
+            { src: 'public/g6.jpg', categories: ['modelos', 'street'], width: '550px', height: '400px' },
+            { src: 'public/g7.jpg', categories: ['modelos', 'street'], width: '250px', height: '400px' },
+            { src: 'public/g8.jpg', categories: ['modelos', 'street'], width: '250px', height: '400px' },
+            { src: 'public/g9.jpg', categories: ['modelos', 'street'], width: '250px', height: '400px' }, 
+          
+
+            { src: 'public/g10.jpg', categories: ['modelos', 'street'], width: '250px', height: '400px' },
+            { src: 'public/g11.jpg', categories: ['modelos', 'street'], width: '250px', height: '400px' },
+            { src: 'public/g1.jpg', categories: ['modelos', 'street'], width: '550px', height: '400px' },
+
+            { src: 'public/g12.jpg', categories: ['modelos', 'street'], width: '550px', height: '400px' },
+            { src: 'public/p2.JPG', categories: ['paisagens'], width: '550px', height: '400px' },
+            { src: 'public/p3.JPG', categories: ['paisagens'], width: '550px', height: '400px' },
+            
         ];
 
         function loadImages() {
