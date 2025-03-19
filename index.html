@@ -6,6 +6,26 @@
     <title>Portfólio de Fotografia</title>
     <script src="https://cdn.rawgit.com/exif-js/exif-js/master/exif.js"></script>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; 
+            text-align: center;
+        }
+
+        .cover {
+            width: 100%;
+            height: 250px;
+            background: url('public/capa.png')   ;
+            display: flex;
+            align-items: center;
+            justify-content: normal;
+            padding: 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
         .filters {
     display: flex;
     justify-content: center;
@@ -57,32 +77,23 @@
     border-color: #333;
 }
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-        .filters {
-            margin-bottom: 20px;
-        }
         .gallery {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             justify-content: center;
         }
+
         .gallery img {
-            width: 300px;
-            height: auto;
-            object-fit: cover;
             border-radius: 8px;
             transition: transform 0.3s ease;
             cursor: pointer;
         }
+
         .gallery img:hover {
-            transform: scale(1.1);  
-        } 
+            transform: scale(1.1);
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -94,22 +105,20 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            cursor: pointer;  /* Altera o cursor para indicar que a área é clicável */
+            cursor: pointer;
         }
 
-      
         .modal-content {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 90%;   
-            height: 90%; 
+            width: 90%;
+            height: 90%;
             position: relative;
         }
 
-        /* Modal Image */
         .modal img {
-            width: auto; 
+            width: auto;
             height: auto;
             max-width: 100%;
             max-height: 100%;
@@ -117,29 +126,27 @@
             display: block;
         }
 
-        /* Modal Info */
         .modal-info {
             margin-left: 20px;
             color: white;
             font-size: 16px;
         }
 
-        /* Mostrar modal */
         .modal.active {
             display: flex;
         }
     </style>
 </head>
 <body>
-    <h1>Emmanuel Stocco</h1>
+    <div class="cover">Emmanuel Stocco</div>
+    <h1>Portfólio</h1>
     <div class="filters">
-        <button onclick="filterImages('all')" class="filter-btn">Todas</button>
+        <button onclick="filterImages('all')" class="filter-btn active">Todas</button>
         <button onclick="filterImages('paisagens')" class="filter-btn">Paisagens</button>
         <button onclick="filterImages('modelos')" class="filter-btn">Modelos</button>
     </div>
     <div class="gallery" id="gallery"></div>
     
-    <!-- Modal -->
     <div class="modal" id="modal" onclick="closeModal()">
         <div class="modal-content">
             <img id="modalImage" src="" alt="Imagem Modal">
@@ -149,31 +156,26 @@
 
     <script>
         const images = [
-    { src: 'public/p1.JPG', category: 'paisagens', width: '350px', height: '250px' },            
-    { src: 'public/g1.jpg', category: 'modelos', width: '350px', height: '250px' },
-    { src: 'public/g2.jpg', category: 'modelos', width: '250px', height: '400px' }
-];
+            { src: 'public/p1.JPG', category: 'paisagens', width: '350px', height: '250px' },
+            { src: 'public/g1.jpg', category: 'modelos', width: '350px', height: '250px' },
+            { src: 'public/g2.jpg', category: 'modelos', width: '250px', height: '400px' }
+        ];
 
+        function loadImages() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+            images.forEach(img => {
+                const imageElement = document.createElement('img');
+                imageElement.src = img.src;
+                imageElement.dataset.category = img.category;
+                imageElement.style.width = img.width;
+                imageElement.style.height = img.height;
+                imageElement.onclick = () => openModal(img.src);
+                gallery.appendChild(imageElement);
+            });
+        }
 
-function loadImages() {
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = ''; // Limpa a galeria
-    images.forEach(img => {
-        const imageElement = document.createElement('img');
-        imageElement.src = img.src;
-        imageElement.dataset.category = img.category;
-        
-        // Definindo o tamanho da imagem dinamicamente
-        imageElement.style.width = img.width;
-        imageElement.style.height = img.height;
-        
-        imageElement.onclick = () => openModal(img.src);
-        gallery.appendChild(imageElement);
-    });
-}
-
-
-function filterImages(category) {
+        function filterImages(category) {
     document.querySelectorAll('.gallery img').forEach(img => {
         img.style.display = category === 'all' || img.dataset.category === category ? 'block' : 'none';
     });
@@ -190,7 +192,6 @@ function filterImages(category) {
             const modalInfo = document.getElementById('modalInfo');
             modalImage.src = src;
 
-            // Garantir que a imagem foi carregada corretamente
             const img = new Image();
             img.src = src;
 
@@ -202,25 +203,14 @@ function filterImages(category) {
                     const make = EXIF.getTag(this, 'Make');
                     const model = EXIF.getTag(this, 'Model');
                     const dateTime = EXIF.getTag(this, 'DateTime');
-                    
-                    modalInfo.innerHTML = `
-                        ${iso ? `<p><strong>ISO:</strong> ${iso}</p>` : ''}
-                        ${aperture ? `<p><strong>Abertura:</strong> f/${aperture}</p>` : ''}
-                        ${shutterSpeed ? `<p><strong>Velocidade do obturador:</strong> ${(1 / shutterSpeed).toFixed(0)}s</p>` : ''}
-                        ${make ? `<p><strong>Marca da câmera:</strong> ${make}</p>` : ''}
-                        ${model ? `<p><strong>Modelo da câmera:</strong> ${model}</p>` : ''}
-                        ${dateTime ? `<p><strong>Data e hora:</strong> ${dateTime}</p>` : ''}
-                    `;
-
+                    modalInfo.innerHTML = `${iso ? `<p><strong>ISO:</strong> ${iso}</p>` : ''}${aperture ? `<p><strong>Abertura:</strong> f/${aperture}</p>` : ''}${shutterSpeed ? `<p><strong>Velocidade:</strong> ${(1 / shutterSpeed).toFixed(0)}s</p>` : ''}${make ? `<p><strong>Marca:</strong> ${make}</p>` : ''}${model ? `<p><strong>Modelo:</strong> ${model}</p>` : ''}${dateTime ? `<p><strong>Data:</strong> ${dateTime}</p>` : ''}`;
                 });
             };
-
             modal.classList.add('active');
         }
 
         function closeModal() {
-            const modal = document.getElementById('modal');
-            modal.classList.remove('active');
+            document.getElementById('modal').classList.remove('active');
         }
 
         loadImages();
