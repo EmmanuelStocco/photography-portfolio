@@ -21,31 +21,40 @@
 }
 
 /* Estilização dos botões */
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px; 
+    background: rgba(255, 255, 255, 0.8); /* Fundo levemente transparente */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Botões minimalistas */
 .filter-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
     background-color: transparent;
-    border: 2px solid transparent;
+    border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-transform: uppercase; /* Deixa o texto em maiúsculas */
 }
 
-/* Efeito de hover */
+/* Hover */
 .filter-btn:hover {
-    background-color: #ffffff;
-    color: #cfcece;
-    border-color: #cfcece;
-    transform: scale(1.05); /* Leve aumento ao passar o mouse */
+    background-color: #f0f0f0;
+    border-color: #bbb;
 }
 
-/* Efeito de foco */
-.filter-btn:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(17, 17, 17, 0.7); /* Efeito de foco com a cor do gradiente */
+/* Estilo para o botão ativo */
+.filter-btn.active {
+    background-color: #333;
+    color: white;
+    border-color: #333;
 }
 
         body {
@@ -164,11 +173,16 @@ function loadImages() {
 }
 
 
-        function filterImages(category) {
-            document.querySelectorAll('.gallery img').forEach(img => {
-                img.style.display = category === 'all' || img.dataset.category === category ? 'block' : 'none';
-            });
-        }
+function filterImages(category) {
+    document.querySelectorAll('.gallery img').forEach(img => {
+        img.style.display = category === 'all' || img.dataset.category === category ? 'block' : 'none';
+    });
+
+    // Atualiza a classe ativa nos botões
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`button[onclick="filterImages('${category}')"]`).classList.add('active');
+}
+
 
         function openModal(src) {
             const modal = document.getElementById('modal');
