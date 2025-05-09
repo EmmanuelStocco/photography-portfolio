@@ -235,7 +235,27 @@ body {
         max-width: 100%;
     }
 }
+@media screen and (max-width: 768px) {
+    .modal-content {
+        flex-direction: column;
+        padding: 20px;
+        overflow-y: auto;
+    }
 
+    .modal-info {
+        margin-left: 0;
+        margin-top: 20px;
+        text-align: left;
+        font-size: 10px;
+        max-width: 100%;
+        word-wrap: break-word;
+    }
+
+    .modal img {
+        max-width: 100%;
+        height: auto;
+    }
+}
     </style>
 </head>
 <body class="light-theme">
@@ -258,7 +278,7 @@ body {
 
     <button class="theme-btn" onclick="toggleTheme()">
         <i id="theme-icon" class="fa"></i>
-        <span id="theme-text">Modo Claro</span>
+        <span id="theme-text">Modo Escuro</span>
     </button>
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
