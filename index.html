@@ -91,6 +91,40 @@
     }
 }
 
+@media screen and (max-width: 768px) {
+    .cover {
+        height: 150px;
+        padding: 10px;
+        font-size: 18px;
+        justify-content: center;
+        text-align: center;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .filters {
+        flex-wrap: wrap;
+        width: 90%;
+        gap: 10px;
+    }
+
+    .filter-btn {
+        flex: 1 1 45%;
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+    .theme-btn {
+        top: auto;
+        bottom: 20px;
+        margin-top: 0;
+        right: 10px;
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+
         .gallery img {
             border-radius: 8px;
             transition: transform 0.3s ease;
@@ -144,21 +178,36 @@
         }
 
         /* Botão de tema */
-        .theme-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            margin-top: 25vh;
-        }
+.theme-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    z-index: 1001;
+}
+
+@media screen and (max-width: 768px) {
+    .theme-btn {
+        top: 10px;
+        right: 10px;
+        padding: 6px 10px;
+        font-size: 13px;
+        margin-top: 0;
+        width: 70px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 
         .theme-btn:hover {
             background-color: #555;
@@ -167,6 +216,25 @@
         .theme-btn i {
             margin-right: 8px;            
         }
+
+        /* Impede qualquer transbordamento lateral */
+body {
+    overflow-x: hidden;
+}
+
+/* Garante que nada ultrapasse a largura da tela */
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .gallery img {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+    }
+}
 
     </style>
 </head>
@@ -276,10 +344,10 @@
             body.classList.toggle('dark-theme');
             body.classList.toggle('light-theme');
             if (body.classList.contains('dark-theme')) {
-                themeText.textContent = 'Modo Escuro';
+                themeText.textContent = 'Modo Claro';
                 themeIcon.className = 'fa fa-moon';
             } else {
-                themeText.textContent = 'Modo Claro';
+                themeText.textContent = 'Modo Escuro';
                 themeIcon.className = 'fa fa-sun';
             }
         }
